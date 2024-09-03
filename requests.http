@@ -1,0 +1,27 @@
+### Регистрация
+POST http://localhost:8081/reg
+Content-Type: application/json
+
+{
+  "name": "Jojo1",
+  "password": "reference"
+}
+
+### Авторизация
+POST http://localhost:8081/auth
+Authorization: Basic Sm9qbzE6cmVmZXJlbmNl
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+### Добавить заметку
+POST http://localhost:8081/note/add
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "content": "Замитка добавлено провильно"
+}
+
+### Получить заметки
+GET http://localhost:8081/note/all
+Authorization: Bearer {{auth_token}}

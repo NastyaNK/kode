@@ -1,0 +1,27 @@
+services:
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: anastasia
+      POSTGRES_PASSWORD: 2553
+      POSTGRES_DB: postgres
+    volumes:
+      - ./create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U anastasia"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8081:80"
+    volumes:
+      - ./application.yaml:/root/application.yaml
+    command: ["./kode"]

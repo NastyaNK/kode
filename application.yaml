@@ -1,0 +1,14 @@
+api:
+  host: 0.0.0.0
+  port: 80
+
+auth:
+  secret-key: secretkey
+  duration: 30
+
+database:
+  host: postgres
+  port: 5432
+  username: anastasia
+  password: 2553
+  database: postgres
